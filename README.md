@@ -1,9 +1,11 @@
-# Acrobotic Raspberry Pi Examples
+# Acrobotic Demos for Raspberry Pi 2
+
+This repository was developed for supporting the Diskovery Challenge Hackathon at Western Digitali (2015).
 
 Resources
 =========
 
-This repository contains demo code and resources for making sample projects with the Raspberry Pi. For getting started help and tutorials see the [wiki](https://github.com/acrobotic/Ai_RPi_Examples/wiki).
+In here, you'll find demo code and resources for making sample projects with the Raspberry Pi. For getting started help and tutorials see the [wiki](https://github.com/acrobotic/Ai_RPi_Examples/wiki).
 
 Demos
 =====
