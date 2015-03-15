@@ -1,6 +1,6 @@
 # Acrobotic Demos for Raspberry Pi 2
 
-This repository was developed for supporting the Diskovery Challenge Hackathon at Western Digitali (2015).
+This repository was developed for supporting the Diskovery Challenge Hackathon at Western Digital (2015).
 
 Resources
 =========
