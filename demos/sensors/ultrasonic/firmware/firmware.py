@@ -48,7 +48,7 @@ while True:
     pulse_stop = time.time()
 
 # Distance = Time-of-Flight (in one direction) / Inverse of Sound Speed
-  distance = (pulse_stop - pulse_start) * 34000 / 2
+  distance = (pulse_stop - pulse_start) / 2 * 34000
 
   if distance >= 200 or distance <= 0:
     print("Out of range")
