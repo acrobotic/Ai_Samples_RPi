@@ -50,7 +50,7 @@ while True:
 # Distance = Time-of-Flight (in one direction) / Inverse of Sound Speed
   distance = (pulse_stop - pulse_start) / 2 * 34000
 
-  if distance >= 200 or distance <= 0:
+  if distance >= 400 or distance <= 2:
     print("Out of range")
   else:
     print("Distance (cm)", distance)
