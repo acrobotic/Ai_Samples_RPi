@@ -4,7 +4,7 @@
 #
 # HC-SR04 to TXB108 to RPi
 # GND        GND       GND (6)
-# ECHO       B2<->A2   GPIO18 (12)
+# ECHO       B2<->A2   GPIO27 (13)
 # TRIG       B1<->A1   GPIO17 (11)
 # VCC        VB        5V (2)
 #            VA        3.3V (1)
@@ -22,7 +22,6 @@ class Ultrasonic(object):
     GPIO.setmode(pin_mode)
     GPIO.setup(self.trig_pin, GPIO.OUT)
     GPIO.setup(self.echo_pin, GPIO.IN)
-    time.sleep(0.01)
     GPIO.output(self.trig_pin, GPIO.LOW)
     time.sleep(3)
 
@@ -39,13 +38,13 @@ class Ultrasonic(object):
     pulse_start = 0
     pulse_stop = 0
     while GPIO.input(self.echo_pin) == GPIO.LOW:
+      pulse_start = time.time()
       if (pulse_start > cutoff):
         return None
-      pulse_start = time.time()
     while GPIO.input(self.echo_pin) == GPIO.HIGH:
+      pulse_stop = time.time()
       if (pulse_stop > cutoff):
         return None
-      pulse_stop = time.time()
 
     # Distance = Time-of-Flight (in one direction) / Inverse of Sound Speed
     distance = (pulse_stop - pulse_start) / 2 * 34000
@@ -61,7 +60,7 @@ if __name__ == "__main__":
     sys.exit(0)
   signal.signal(signal.SIGINT, signal_handler)
 
-  ultrasonic = Ultrasonic(GPIO.BOARD,11,12)
+  ultrasonic = Ultrasonic(GPIO.BOARD,11,13)
 
   while True:
     distance = ultrasonic.range_cm()
