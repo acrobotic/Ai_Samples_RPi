@@ -7,5 +7,5 @@ Raspberry Pi 2 HC-SR04 Ultrasonic Range Finder Demo
 Reference
 =========
 
-1. (RPi.GPIO Python Library)[https://pypi.python.org/pypi/RPi.GPIO]
+1. [RPi.GPIO Python Library](https://pypi.python.org/pypi/RPi.GPIO)
 
