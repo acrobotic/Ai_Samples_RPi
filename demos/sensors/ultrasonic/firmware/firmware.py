@@ -1,59 +1,71 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Raspberry Pi 2 HC-SR04 ultrasonic distance sensor demo
+# with TXB108 level shifter
 #
-#
-# HC-SR04 to RPi
-# GND        GND (J9.7)
-# ECHO       GPIO2 (J11.3) through voltage divider (1).
-# TRIG       GPIO3 (J11.4) through inverter below (2).
-# VCC        5 V (J9.4)
+# HC-SR04 to TXB108 to RPi
+# GND        GND       GND (6)
+# ECHO       B2<->A2   GPIO18 (12)
+# TRIG       B1<->A1   GPIO17 (11)
+# VCC        VB        5V (2)
+#            VA        3.3V (1)
 #
 # Note: datasheets recommend connecting GND before VCC.
 #
-#
-import signal
-import sys
 import time
 import RPi.GPIO as GPIO
 
-def signal_handler(signal, frame):
-  GPIO.cleanup()
-  sys.exit(0)
-signal.signal(signal.SIGINT, signal_handler)
+class Ultrasonic(object):
 
-GPIO.setmode(GPIO.BOARD)
-trig_pin = 11
-echo_pin = 12
-GPIO.setup(trig_pin, GPIO.OUT)
-GPIO.setup(echo_pin, GPIO.IN)
-time.sleep(1)
+  def __init__(self, pin_mode, trig_pin, echo_pin):
+    self.trig_pin = trig_pin
+    self.echo_pin = echo_pin
+    GPIO.setmode(pin_mode)
+    GPIO.setup(self.trig_pin, GPIO.OUT)
+    GPIO.setup(self.echo_pin, GPIO.IN)
+    time.sleep(0.01)
+    GPIO.output(self.trig_pin, GPIO.LOW)
+    time.sleep(3)
 
-GPIO.output(trig_pin, GPIO.LOW)
-time.sleep(3)
+  def __exit__(self, type, value, traceback):
+    GPIO.cleanup(self.trig_pin)
+    GPIO.cleanup(self.echo_pin)
 
-while True:
-  print("Send Trigger")
-  GPIO.output(trig_pin, GPIO.HIGH)
-  time.sleep(10/1000/1000)
-  GPIO.output(trig_pin, GPIO.LOW)
+  def range_cm(self):
+    GPIO.output(self.trig_pin, GPIO.HIGH)
+    time.sleep(10/1000/1000)
+    cutoff = time.time() + 0.60
+    GPIO.output(self.trig_pin, GPIO.LOW)
 
-  print("Waiting for echo rising edge")
-  pulse_start = time.time()
-  while GPIO.input(echo_pin) == GPIO.LOW:
-    pulse_start = time.time()
+    pulse_start = 0
+    pulse_stop = 0
+    while GPIO.input(self.echo_pin) == GPIO.LOW:
+      if (pulse_start > cutoff):
+        return None
+      pulse_start = time.time()
+    while GPIO.input(self.echo_pin) == GPIO.HIGH:
+      if (pulse_stop > cutoff):
+        return None
+      pulse_stop = time.time()
 
-  print("Waiting for echo falling edge")
-  pulse_stop = time.time()
-  while GPIO.input(echo_pin) == GPIO.LOW:
-    pulse_stop = time.time()
+    # Distance = Time-of-Flight (in one direction) / Inverse of Sound Speed
+    distance = (pulse_stop - pulse_start) / 2 * 34000
+    if distance >= 400 or distance <= 2:
+      return None
+    return distance
 
-# Distance = Time-of-Flight (in one direction) / Inverse of Sound Speed
-  distance = (pulse_stop - pulse_start) / 2 * 34000
+if __name__ == "__main__":
+  import signal
+  import sys
+  def signal_handler(signal, frame):
+    GPIO.cleanup()
+    sys.exit(0)
+  signal.signal(signal.SIGINT, signal_handler)
 
-  if distance >= 400 or distance <= 2:
-    print("Out of range")
-  else:
-    print("Distance (cm)", distance)
+  ultrasonic = Ultrasonic(GPIO.BOARD,11,12)
 
-  time.sleep(1)
+  while True:
+    distance = ultrasonic.range_cm()
+    if distance:
+      print("Distance %s cm" % distance)
+    time.sleep(1)
 
