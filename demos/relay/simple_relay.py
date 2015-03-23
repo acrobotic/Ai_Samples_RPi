@@ -5,15 +5,16 @@
 import RPi.GPIO as G
 import time
 
+relay_pin = 5 
+
 G.setmode(G.BOARD)
-G.setup(8,G.OUT)
+G.setup(relay_pin,G.OUT)
 
 # Need to wait for a bit until the 'setmode' has an effect.
 # Weird, right?
 time.sleep(1)
 
-
-G.output(2,True)
-time.sleep(2)
-G.output(2, False)
+G.output(relay_pin,True)
+time.sleep(5)
+G.output(relay_pin, False)
 G.cleanup()
