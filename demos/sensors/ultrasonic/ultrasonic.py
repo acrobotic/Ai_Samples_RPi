@@ -16,10 +16,10 @@ import RPi.GPIO as GPIO
 
 class Ultrasonic(object):
 
-  def __init__(self, pin_mode, trig_pin, echo_pin):
+  def __init__(self, trig_pin, echo_pin):
     self.trig_pin = trig_pin
     self.echo_pin = echo_pin
-    GPIO.setmode(pin_mode)
+    GPIO.setmode(GPIO.BOARD)
     GPIO.setup(self.trig_pin, GPIO.OUT)
     GPIO.setup(self.echo_pin, GPIO.IN)
     GPIO.output(self.trig_pin, GPIO.LOW)
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     sys.exit(0)
   signal.signal(signal.SIGINT, signal_handler)
 
-  ultrasonic = Ultrasonic(GPIO.BOARD,11,13)
+  ultrasonic = Ultrasonic(11,13)
 
   while True:
     distance = ultrasonic.range_cm()
