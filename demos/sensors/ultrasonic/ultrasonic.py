@@ -48,6 +48,7 @@ class Ultrasonic(object):
 
     # Distance = Time-of-Flight (in one direction) / Inverse of Sound Speed
     distance = (pulse_stop - pulse_start) / 2 * 34000
+    distance = round(distance,1)
     if distance >= 400 or distance <= 2:
       return None
     return distance
