@@ -27,7 +27,7 @@ The Python example leverages the [RPi.GPIO](http://sourceforge.net/projects/rasp
 
 ### Setup
 
-The C example leverages the [WiringPi]() library which needs to be installed using the following commands. This library is inspired by the [Arduino](http://www.arduino.cc/) [wiring](http://wiring.org.co/) API.
+The C example leverages the [WiringPi](http://wiringpi.com/) library which needs to be installed using the following commands. This library is inspired by the [Arduino](http://www.arduino.cc/) [wiring](http://wiring.org.co/) API.
 
 1. `git clone git://git.drogon.net/wiringPi`
 1. `cd wiringPi`
@@ -40,4 +40,12 @@ The C example leverages the [WiringPi]() library which needs to be installed usi
 
 ## JavaScript
 
+The JavaScript example uses [Node.JS](https://nodejs.org/) and a Raspberry Pi 2 and Node.JS 0.12.0 compatible fork of the [wiring-pi](https://github.com/nekuz0r/wiring-pi/tree/incoming-node-v0.12.x) wiringPi JavaScript bindings.
+
+### Setup
+
+1. `wget http://node-arm.herokuapp.com/node_latest_armhf.deb`
+1. `sudo dpkg -i node_latest_armhf.deb`
+1. `npm install git+https://git@github.com/nekuz0r/wiring-pi.git#incoming-node-v0.12.x`
+1. `sudo node blink.js`
 
