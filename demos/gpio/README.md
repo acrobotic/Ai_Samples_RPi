@@ -36,7 +36,7 @@ The C example leverages the [WiringPi]() library which needs to be installed usi
 ### Run
 
 1. `gcc -o blink blink.c -lwiringPi`
-1 `sudo ./blink`
+1. `sudo ./blink`
 
 ## JavaScript
 
