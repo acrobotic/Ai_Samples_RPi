@@ -13,6 +13,7 @@ var iv = setInterval(function() {
 }, 1*1000);
 
 setTimeout(function () {
-  clearInterval(iv); // Stop blinking
+  clearInterval(iv);
+  wpi.pinMode(led_pin, wpi.INPUT);
 }, 60*1000);
 
