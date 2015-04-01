@@ -15,7 +15,7 @@
 -            BOARD_REVISION = 1 if (cpurev < 4) else 2
 +            if cpurev < 4:
 +              BOARD_REVISION = 1
-+            else if cpurev < 7:
++            elif cpurev < 7:
 +              BOARD_REVISION = 2
 +            else:
 +              BOARD_REVISION = 3
