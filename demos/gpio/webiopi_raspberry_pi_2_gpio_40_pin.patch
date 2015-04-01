@@ -1,0 +1,20 @@
+--- htdocs/webiopi.js	2014-02-23 08:37:07.000000000 -0800
++++ htdocs/webiopi.js	2015-04-01 13:37:46.433301279 -0700
+@@ -73,7 +73,7 @@
+ 	this.readyCallback = null;
+ 	this.context = "/";
+ 	this.GPIO = Array(54);
+-	this.PINS = Array(27);
++	this.PINS = Array(41);
+ 
+ 	this.TYPE = {
+ 			DNC: {value: 0, style: "DNC", label: "--"},
+@@ -577,7 +577,7 @@
+ RPiHeader.prototype.createTable = function (containerId) {
+ 	var table = $("<table>");
+ 	table.attr("id", "RPiHeader")
+-	for (var pin=1; pin<=26; pin++) {
++	for (var pin=1; pin<=40; pin++) {
+ 		var line = 	$('<tr>');
+ 		line.append(this.getFunctionCell(pin))
+ 		line.append(this.getDescriptionCell(pin, "right"))

@@ -62,7 +62,8 @@ Web client and API to control the Raspberry Pi's I/O.
 1. `tar xvzf WebIOPi-0.7.1.tar.gz`
 1. `cd WebIOPi-0.7.1`
 1. `patch -p0 -i ../webiopi_raspberry_pi_2_cpu_support.patch`
-1. `patch -p1 -i ../WebIOPi-0.7.0.Bplus.patch`
+1. `patch -p0 -i ../webiopi_raspberry_pi_2_gpio_40_pin.patch`
+1. `patch -p0 -i ../webiopi_raspberry_pi_2_gpio_mapping.patch`
 1. `sudo ./setup.sh`
 
 ## Run
