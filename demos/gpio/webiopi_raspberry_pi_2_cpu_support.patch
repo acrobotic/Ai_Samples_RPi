@@ -1,0 +1,61 @@
+Index: python/native/cpuinfo.c
+===================================================================
+--- python/native/cpuinfo.c	(revision 1506)
++++ python/native/cpuinfo.c	(working copy)
+@@ -39,6 +39,8 @@
+       sscanf(buffer, "Hardware	: %s", hardware);
+       if (strcmp(hardware, "BCM2708") == 0)
+          rpi_found = 1;
++      else if (strcmp(hardware, "BCM2709") == 0)
++         rpi_found = 1;
+       sscanf(buffer, "Revision	: %s", revision);
+    }
+    fclose(fp);
+@@ -60,6 +62,16 @@
+        (strcmp(revision, "0003") == 0) ||
+        (strcmp(revision, "1000003") == 0 ))
+       return 1;
+-   else // assume rev 2 (0004 0005 0006 1000004 1000005 1000006)
++   else if ((strcmp(revision, "0004") == 0) ||
++            (strcmp(revision, "1000004") == 0 ) ||
++            (strcmp(revision, "0005") == 0) ||
++            (strcmp(revision, "1000005") == 0 ) ||
++            (strcmp(revision, "0006") == 0) ||
++            (strcmp(revision, "1000006") == 0 ))
+       return 2;
++   else if ((strcmp(revision, "a01041") == 0) ||
++            (strcmp(revision, "a21041") == 0 ))
++      return 3;
++   else // assume rev 4
++      return 4;
+ }
+Index: python/native/gpio.c
+===================================================================
+--- python/native/gpio.c	(revision 1506)
++++ python/native/gpio.c	(working copy)
+@@ -28,9 +28,12 @@
+ #include <time.h>
+ #include <pthread.h>
+ #include "gpio.h"
++#include "cpuinfo.h"
+ 
+ #define BCM2708_PERI_BASE   0x20000000
+-#define GPIO_BASE           (BCM2708_PERI_BASE + 0x200000)
++#define BCM2708_GPIO_BASE   (BCM2708_PERI_BASE + 0x200000)
++#define BCM2709_PERI_BASE   0x3F000000
++#define BCM2709_GPIO_BASE   (BCM2709_PERI_BASE + 0x200000)
+ #define FSEL_OFFSET         0   // 0x0000
+ #define SET_OFFSET          7   // 0x001c / 4
+ #define CLR_OFFSET          10  // 0x0028 / 4
+@@ -83,7 +86,10 @@
+     if ((uint32_t)gpio_mem % PAGE_SIZE)
+         gpio_mem += PAGE_SIZE - ((uint32_t)gpio_mem % PAGE_SIZE);
+ 
+-    gpio_map = (uint32_t *)mmap( (caddr_t)gpio_mem, BLOCK_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_FIXED, mem_fd, GPIO_BASE);
++    if (get_rpi_revision() <= 2)
++       gpio_map = (uint32_t *)mmap( (caddr_t)gpio_mem, BLOCK_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_FIXED, mem_fd, BCM2708_GPIO_BASE);
++    else
++       gpio_map = (uint32_t *)mmap( (caddr_t)gpio_mem, BLOCK_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_FIXED, mem_fd, BCM2709_GPIO_BASE);
+ 
+     if ((uint32_t)gpio_map < 0)
+         return SETUP_MMAP_FAIL;
