@@ -5,7 +5,7 @@ This repository was developed for supporting the Diskovery Challenge Hackathon a
 Resources
 =========
 
-In here, you'll find demo code and resources for making sample projects with the Raspberry Pi. For getting started help and tutorials see the [wiki](https://github.com/acrobotic/Ai_RPi_Examples/wiki).
+In here, you'll find demo code and resources for making sample projects with the Raspberry Pi. For getting started help and tutorials see the [wiki](https://github.com/acrobotic/Ai_Demos_RPi/wiki/0.-Getting-Started).
 
 Demos
 =====
