@@ -47,5 +47,8 @@ The JavaScript example uses [Node.JS](https://nodejs.org/) and a Raspberry Pi 2 
 1. `wget http://node-arm.herokuapp.com/node_latest_armhf.deb`
 1. `sudo dpkg -i node_latest_armhf.deb`
 1. `npm install git+https://git@github.com/nekuz0r/wiring-pi.git#incoming-node-v0.12.x`
+
+### Run
+
 1. `sudo node blink.js`
 
