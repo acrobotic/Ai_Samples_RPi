@@ -1,0 +1,33 @@
+diff -Naur ../WebIOPi-0.7.0/htdocs/webiopi.js ./htdocs/webiopi.js
+--- ../WebIOPi-0.7.0/htdocs/webiopi.js	2014-02-23 17:37:07.000000000 +0100
++++ ./htdocs/webiopi.js	2014-08-28 16:10:22.303266425 +0200
+@@ -73,7 +73,7 @@
+ 	this.readyCallback = null;
+ 	this.context = "/";
+ 	this.GPIO = Array(54);
+-	this.PINS = Array(27);
++	this.PINS = Array(41);
+ 
+ 	this.TYPE = {
+ 			DNC: {value: 0, style: "DNC", label: "--"},
+@@ -577,7 +577,7 @@
+ RPiHeader.prototype.createTable = function (containerId) {
+ 	var table = $("<table>");
+ 	table.attr("id", "RPiHeader")
+-	for (var pin=1; pin<=26; pin++) {
++	for (var pin=1; pin<=40; pin++) {
+ 		var line = 	$('<tr>');
+ 		line.append(this.getFunctionCell(pin))
+ 		line.append(this.getDescriptionCell(pin, "right"))
+diff -Naur ../WebIOPi-0.7.0/python/webiopi/utils/version.py ./python/webiopi/utils/version.py
+--- ../WebIOPi-0.7.0/python/webiopi/utils/version.py	2014-03-01 22:07:52.000000000 +0100
++++ ./python/webiopi/utils/version.py	2014-08-28 16:09:15.775269244 +0200
+@@ -8,7 +8,7 @@
+ 
+ _MAPPING = [[], [], []]
+ _MAPPING[1] = ["V33", "V50", 0, "V50", 1, "GND", 4, 14, "GND", 15, 17, 18, 21, "GND", 22, 23, "V33", 24, 10, "GND", 9, 25, 11, 8, "GND", 7]
+-_MAPPING[2] = ["V33", "V50", 2, "V50", 3, "GND", 4, 14, "GND", 15, 17, 18, 27, "GND", 22, 23, "V33", 24, 10, "GND", 9, 25, 11, 8, "GND", 7]
++_MAPPING[2] = ["V33", "V50", 2, "V50", 3, "GND", 4, 14, "GND", 15, 17, 18, 27, "GND", 22, 23, "V33", 24, 10, "GND", 9, 25, 11, 8, "GND", 7, "DNC", "DNC" , 5, "GND", 6, 12, 13, "GND", 19, 16, 26, 20, "GND", 21]
+ 
+ 
+ try:

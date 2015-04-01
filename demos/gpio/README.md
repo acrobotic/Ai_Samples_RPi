@@ -52,3 +52,28 @@ The JavaScript example uses [Node.JS](https://nodejs.org/) and a Raspberry Pi 2 
 
 1. `sudo node blink.js`
 
+# WebIOPi
+
+Web client and API to control the Raspberry Pi's I/O.
+
+## Setup
+
+1. `wget http://downloads.sourceforge.net/project/webiopi/WebIOPi-0.7.1.tar.gz`
+1. `tar xvzf WebIOPi-0.7.1.tar.gz`
+1. `cd WebIOPi-0.7.1`
+1. `patch -p0 -i ../webiopi_raspberry_pi_2_cpu_support.patch`
+1. `patch -p1 -i ../WebIOPi-0.7.0.Bplus.patch`
+1. `sudo ./setup.sh`
+
+## Run
+
+1. `sudo /etc/init.d/webiopi start`
+1. Open http://raspberrypi:8000/app/gpio-header from any device on your network. Use the IP address if DNS is not set up.
+ * Default user is "webiopi" and password is "raspberry".
+1. Change GPIO 18 mode from "IN" to "OUT". 
+1. Click "12" to toggle GPIO 18 from HIGH and turn on LED.
+
+1. To auto start WebIOPi `sudo update-rc.d webiopi defaults`
+
+See [INSTALL](https://code.google.com/p/webiopi/wiki/INSTALL#Running_WebIOPi) for other installation options.
+
