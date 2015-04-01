@@ -68,7 +68,7 @@ Web client and API to control the Raspberry Pi's I/O.
 ## Run
 
 1. `sudo /etc/init.d/webiopi start`
-1. Open http://raspberrypi:8000/app/gpio-header from any device on your network. Use the IP address if DNS is not set up.
+1. Open [http://raspberrypi:8000/app/gpio-header](http://raspberrypi:8000/app/gpio-header) from any device on your network. Use the IP address if DNS is not set up.
  * Default user is "webiopi" and password is "raspberry".
 1. Change GPIO 18 mode from "IN" to "OUT". 
 1. Click "12" to toggle GPIO 18 from HIGH and turn on LED.
